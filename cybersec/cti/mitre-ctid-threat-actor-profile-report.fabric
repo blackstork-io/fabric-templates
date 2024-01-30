@@ -42,7 +42,7 @@ document "mitre_ctid_threat_actor_profile_report" {
     base = section.ctid_assessment
   }
 
-  section "thrat_actor_summary" {
+  section "threat_actor_summary" {
 
     title = "Threat Actor Summary"
 
