@@ -13,11 +13,10 @@ document "mitre_ctid_executive_report" {
     EOT
 
     url = "https://github.com/center-for-threat-informed-defense/cti-blueprints"
-
     license = "Apache License 2.0"
+    updated_at = "2024-01-26T11:00:11+01:00"
     tags = ["mitre", "executive"]
 
-    updated_at = "2024-01-26T11:00:11+01:00"
   }
 
   title = "Report Title*"
@@ -30,6 +29,7 @@ document "mitre_ctid_executive_report" {
         This should be a brief narrative explaining the significance of the report to senior leadership. This should focus on the decision the CTI summary is supporting and the change in circumstances that makes this timely and actionable.  
 
         This should focus on: 
+
         * Bottom Line Up Front (BLUF): The single largest takeaway from the CTI analysis.
         * What is the new information?
         * Why it is important for the audience to understand this now?
@@ -47,6 +47,7 @@ document "mitre_ctid_executive_report" {
     content text {
       text = <<-EOT
         This section should clearly lay out:
+
         * The trend in question.
         * The reason it is important.
         * The key decision/risk/opportunity it presents.
@@ -60,6 +61,7 @@ document "mitre_ctid_executive_report" {
     content text {
       text = <<-EOT
         This section needs to lay out several things. 
+
         * What is the trend that is being assessed?
         * What is the historical baseline?
         * What is the new information that creates a need to understand this now?
