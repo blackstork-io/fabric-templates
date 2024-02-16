@@ -8,7 +8,7 @@
 
 <br/>
 
-![GitHub Repository stars](https://img.shields.io/github/stars/blackstork-io/fabric?style=social)
+![GitHub Repository stars](https://img.shields.io/github/stars/blackstork-io/fabric-templates?style=social)
 [![Join Slack](https://img.shields.io/badge/slack-join-8F87F7)](https://fabric-community.slack.com/)
 
 </div>
