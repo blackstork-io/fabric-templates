@@ -1,8 +1,12 @@
 <div align="center">
-## <img src=".github/fabric.svg" alt="Fabric logo" width="250px"/> Fabric Templates
+  
+# <img src=".github/fabric.svg" alt="Fabric logo" width="25px"/> Fabric Templates
+
 <br/>
 
 [Fabric Github](https://github.com/blackstork-io/fabric) | [Fabric Docs](https://blackstork.io/fabric/docs/) | [Community Slack](https://fabric-community.slack.com/)
+
+<br/>
 
 ![GitHub Repository stars](https://img.shields.io/github/stars/blackstork-io/fabric?style=social)
 [![Join Slack](https://img.shields.io/badge/slack-join-8F87F7)](https://fabric-community.slack.com/)
