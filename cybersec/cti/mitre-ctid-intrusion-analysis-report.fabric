@@ -18,7 +18,6 @@ document "mitre_ctid_intrusion_analysis_report" {
     updated_at = "2024-01-22T10:00:01+01:00"
   }
 
-
   title = "Report Title*"
 
   section "summary" {
@@ -35,7 +34,7 @@ document "mitre_ctid_intrusion_analysis_report" {
 
         This section should not summarize the underlying reports used to create the analysis.  
 
-        This should be able to convey the most important analysis to the reader, so that they can skip the rest of the report and still be able to take an informed action. 
+        This should be able to convey the most important analysis to the reader, so that they can skip the rest of the report and still be able to take an informed action.
 
         The Executive Summary should not be longer than 2 -3 paragraphs, according to best practices. For this report, we recommend trying to keep it to a paragraph
       EOT
