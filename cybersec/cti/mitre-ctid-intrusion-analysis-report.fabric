@@ -147,7 +147,7 @@ document "mitre_ctid_intrusion_analysis_report" {
     base = section.ctid_feedback
   }
 
-  conetent ref {
+  content ref {
     base = content.text.ctid_data_sources
   }
 
