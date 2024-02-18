@@ -402,6 +402,7 @@ section "ctid_cves" {
 content text "ctid_data_sources" {
   text = <<-EOT
     *Data Sources:*
+
     * Cite external CTI Report with hyperlink if available
     * Cite Internal Telemetry sources provided by the SOC as needed. This field is not designed to preserve telemetry data and should only include data necessary to justify the analytic assessments.
   EOT
