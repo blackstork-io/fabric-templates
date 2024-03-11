@@ -4,7 +4,7 @@
 
 <br/>
 
-[Fabric Github](https://github.com/blackstork-io/fabric) | [Fabric Docs](https://blackstork.io/fabric/docs/) | [Community Slack](https://fabric-community.slack.com/)
+[Fabric GitHub](https://github.com/blackstork-io/fabric) | [Fabric Docs](https://blackstork.io/fabric/docs/) | [Community Slack](https://fabric-community.slack.com/)
 
 <br/>
 
@@ -15,9 +15,9 @@
 
 The repository contains open-source templates for [Fabric](https://github.com/blackstork-io/fabric).
 
-Fabric is an open-source CLI tool and a configuration language that codifies and automates content generation. The configuration files in this repository are written in [FCL](https://blackstork.io/fabric/docs/language/) (Fabric Configuration Language). The goal of this repository is to foster a community of practice around efficient automated mission-critical communications, with a focus on security reporting.
+**Fabric** is an open-source Command Line Interface (CLI) tool coupled with a configuration language designed to encode and automate content generation for cyber-security and compliance.
 
-See [Documentation](https://blackstork.io/fabric/docs/) for more details on the Fabric language and Fabric CLI.
+Fabric generates documents based on modular templates written in [Fabric Configuration Language](https://blackstork.io/fabric/docs/language/) (FCL). Template authors can delineate data requirements and content structures within the template, significantly reducing the manual effort associated with data consolidation and improving re-usability.
 
 ## Contributions
 
@@ -28,4 +28,3 @@ Join us in creating a collaborative space where professionals can share best pra
 ## License
 
 Fabric is licensed under the MIT License. See the [LICENSE](LICENSE) file for the details.
-
