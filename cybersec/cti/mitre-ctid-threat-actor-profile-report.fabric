@@ -4,19 +4,19 @@ document "mitre_ctid_threat_actor_profile_report" {
     name = "MITRE CTID Threat Actor Profile Report Template"
 
     description = <<-EOT
-      Author: CTI Team 
-      Audience: SOC 
+      Author: CTI Team
+      Audience: SOC
       Key Decisions: Determine alert prioritization and triaging; Identify TTPs that may require new or updated detections.  
       Decision-Enabling Data Points: Context and relevance of the threat to the organization; Adversary behavior and potential goals; IOC enrichment; Associated malware and tools; Newly observed TTPs 
 
-      Author: CTI Team 
-      Audience: Threat Hunt 
-      Key Decisions: Conduct tailored, specific searches in the network for the reported malicious behavior. 
+      Author: CTI Team
+      Audience: Threat Hunt
+      Key Decisions: Conduct tailored, specific searches in the network for the reported malicious behavior.
       Decision-Enabling Data Points: Adversary behavior and potential goals; IOC enrichment; Associated malware and tools; Observed TTPs; Difference from existing TTPs – net new capabilities, slight modifications, etc. 
 
-      Author: CTI Team 
-      Audience: Red/Purple Team 
-      Key Decisions: Conduct updated, threat-informed adversary emulation to better assess an organization’s defensive posture against the reported malicious activity.   
+      Author: CTI Team
+      Audience: Red/Purple Team
+      Key Decisions: Conduct updated, threat-informed adversary emulation to better assess an organization's defensive posture against the reported malicious activity.   
       Decision-Enabling Data Points: Adversary behavior and potential goals; IOC enrichment; Associated malware and tools; Observed TTPs 
     EOT
 
