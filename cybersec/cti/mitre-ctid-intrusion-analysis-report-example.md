@@ -39,7 +39,7 @@ This section should provide:
 
 ## MITRE ATT&CK Table (based on v12): TTPs Likely to Be in the Network
 
-This table should show the MITRE tactics and techniques/Sub-techniques not yet observed but likely to be in the network. The procedure column details a particular instance of how a technique/sub-technique has been used. The D3FEND column includes the corresponding MITRE D3FEND countermeasure technique, if available.  If using the tool, the tactics and techniques can be automatically generated from an Attack Flow document using the plug-in.
+This table should show the MITRE tactics and techniques/Sub-techniques not yet observed but likely to be in the network. The procedure column details a particular instance of how a technique/sub-technique has been used. The D3FEND column includes the corresponding MITRE D3FEND countermeasure technique, if available. If using the tool, the tactics and techniques can be automatically generated from an Attack Flow document using the plug-in.
 
 |Attribution|Tactics|Techniques|Sub Technique|Procedure|D3FEND|Deployed Control|
 |---|---|---|---|---|---|---|

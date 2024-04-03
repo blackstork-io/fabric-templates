@@ -80,7 +80,7 @@ document "mitre_ctid_intrusion_analysis_report" {
 
     content text {
       value = <<-EOT
-        This table should show the MITRE tactics and techniques/Sub-techniques not yet observed but likely to be in the network. The procedure column details a particular instance of how a technique/sub-technique has been used. The D3FEND column includes the corresponding MITRE D3FEND countermeasure technique, if available.  If using the tool, the tactics and techniques can be automatically generated from an Attack Flow document using the plug-in.
+        This table should show the MITRE tactics and techniques/Sub-techniques not yet observed but likely to be in the network. The procedure column details a particular instance of how a technique/sub-technique has been used. The D3FEND column includes the corresponding MITRE D3FEND countermeasure technique, if available. If using the tool, the tactics and techniques can be automatically generated from an Attack Flow document using the plug-in.
       EOT
     }
 
