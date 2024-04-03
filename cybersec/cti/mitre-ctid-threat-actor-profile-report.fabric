@@ -6,7 +6,7 @@ document "mitre_ctid_threat_actor_profile_report" {
     description = <<-EOT
       Author: CTI Team
       Audience: SOC
-      Key Decisions: Determine alert prioritization and triaging; Identify TTPs that may require new or updated detections.  
+      Key Decisions: Determine alert prioritization and triaging; Identify TTPs that may require new or updated detections.
       Decision-Enabling Data Points: Context and relevance of the threat to the organization; Adversary behavior and potential goals; IOC enrichment; Associated malware and tools; Newly observed TTPs 
 
       Author: CTI Team
@@ -47,17 +47,17 @@ document "mitre_ctid_threat_actor_profile_report" {
     title = "Threat Actor Summary"
 
     content text {
-      text = "This section should contain relevant information outlining the key differentiating features of the intrusion set. Start with an overarching summary: This intrusion set, associated with county Y, organization X, mainly targets sectors 1,2,3 and countries A, B, C. They have been openly tracked since XX/XX/XXXX."
+      value = "This section should contain relevant information outlining the key differentiating features of the intrusion set. Start with an overarching summary: This intrusion set, associated with county Y, organization X, mainly targets sectors 1,2,3 and countries A, B, C. They have been openly tracked since XX/XX/XXXX."
     }
 
     section {
       title = "Tactics, Techniques, and Procedures"
 
       content text {
-        text = <<-EOT
-          This sub section should list out the types of tools and TTPs they leverage. This does not need to be an exhaustive list of tool names (that will be listed in the table below), but rather a description of how they operate.  
+        value = <<-EOT
+          This sub section should list out the types of tools and TTPs they leverage. This does not need to be an exhaustive list of tool names (that will be listed in the table below), but rather a description of how they operate.
 
-          EXAMPLE: Threat actor X leverages legitimate administrative tools during their intrusions to avoid detection and attribution. They primarily rely on exploitation of vulnerabilities in internet facing devices for initial access, etc. 
+          EXAMPLE: Threat actor X leverages legitimate administrative tools during their intrusions to avoid detection and attribution. They primarily rely on exploitation of vulnerabilities in internet facing devices for initial access, etc.
         EOT
       }
     }
@@ -66,9 +66,9 @@ document "mitre_ctid_threat_actor_profile_report" {
       title = "Infrastructure"
 
       content text {
-        text = <<-EOT
-          This sub section should list the types of infrastructure the threat actor leverages for command and control, initial intrusion, and exfiltration from networks. 
-          EXAMPLE: Threat actor X leverages VPS providers for managing C2 communication and exfiltration but prefers to compromise open exchange relays to send phishing emails for initial intrusion. 
+        value = <<-EOT
+          This sub section should list the types of infrastructure the threat actor leverages for command and control, initial intrusion, and exfiltration from networks.
+          EXAMPLE: Threat actor X leverages VPS providers for managing C2 communication and exfiltration but prefers to compromise open exchange relays to send phishing emails for initial intrusion.
         EOT
       }
     }
@@ -77,9 +77,9 @@ document "mitre_ctid_threat_actor_profile_report" {
       title = "Victims"
 
       content text {
-        text = <<-EOT
-          This sub section should list the countries and industries targeted by the threat actor. It should also note if there is a pattern shift in this activity over time. 
-          EXAMPLE: Threat actor X primarily targeted Western Europe defense and advanced technology sectors from 2015- 2021. However, in 2022 the targeting saw a shift to include Latin America and financial services. 
+        value = <<-EOT
+          This sub section should list the countries and industries targeted by the threat actor. It should also note if there is a pattern shift in this activity over time.
+          EXAMPLE: Threat actor X primarily targeted Western Europe defense and advanced technology sectors from 2015- 2021. However, in 2022 the targeting saw a shift to include Latin America and financial services.
         EOT
       }
     }
@@ -88,8 +88,8 @@ document "mitre_ctid_threat_actor_profile_report" {
       title = "Attribution"
 
       content text {
-        text = <<-EOT
-          This sub section should focus on what is known about the intrusion set from an attribution perspective. As attribution is often subjective, each organization will have to come to their own threshold for attributing activity internally. Reserve this section to discuss the known facts that could support attribution to a particular country or organization.  
+        value = <<-EOT
+          This sub section should focus on what is known about the intrusion set from an attribution perspective. As attribution is often subjective, each organization will have to come to their own threshold for attributing activity internally. Reserve this section to discuss the known facts that could support attribution to a particular country or organization.
           EXAMPLE: Threat actor X is attributed to China by several cybersecurity vendors because Chinese language artifacts are present in different malware utilized by the threat actor. Operating times generally correlate to China’s time zone and there is a lull in activity around major Chinese holidays. Additionally, the victims of this activity align with Chinese national interests in Southeast Asia.
         EOT
       }
@@ -112,29 +112,29 @@ document "mitre_ctid_threat_actor_profile_report" {
     title = "Victims"
 
     content text {
-      text = "This table should detail known victims, including sector and geographic location, of this threat actor."
+      value = "This table should detail known victims, including sector and geographic location, of this threat actor."
     }
 
     content table {
       columns = [
         {
-          header = "Name" 
+          header = "Name"
           value = ""
         },
         {
-          header = "Date Reported" 
+          header = "Date Reported"
           value = ""
         },
         {
-          header = "Sector" 
+          header = "Sector"
           value = ""
         },
         {
-          header = "City/State/Province/etc." 
+          header = "City/State/Province/etc."
           value = ""
         },
         {
-          header = "Country/Region" 
+          header = "Country/Region"
           value = ""
         },
       ]
@@ -154,7 +154,7 @@ document "mitre_ctid_threat_actor_profile_report" {
   }
 
   content text {
-    text = "_Attached Attack Flow and/or Navigator Heat Maps, if applicable_"
+    value = "_Attached Attack Flow and/or Navigator Heat Maps, if applicable_"
   }
 
   section ref {
@@ -176,7 +176,7 @@ document "mitre_ctid_threat_actor_profile_report" {
   section "metadata" {
 
     content text {
-      text = <<-EOT
+      value = <<-EOT
         The metadata table below is for automation purposes and provides discrete fields for tool extraction. If you are not using the tool, we recommend removing the table.
 
         |   |   |
