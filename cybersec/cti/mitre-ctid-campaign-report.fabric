@@ -55,7 +55,7 @@ document "mitre_ctid_campaign_report" {
   }
 
   content text {
-    text = "_Attached Attack Flow and/or Navigator Heat Maps, if applicable_"
+    value = "_Attached Attack Flow and/or Navigator Heat Maps, if applicable_"
   }
 
   section ref {
@@ -77,7 +77,7 @@ document "mitre_ctid_campaign_report" {
   section "metadata" {
 
     content text {
-      text = <<-EOT
+      value = <<-EOT
         The metadata table below is for automation purposes and provides discrete fields for tool extraction. If you are not using the tool, we recommend removing the table.
 
         |   |   |

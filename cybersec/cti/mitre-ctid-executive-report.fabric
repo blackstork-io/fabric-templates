@@ -25,17 +25,17 @@ document "mitre_ctid_executive_report" {
     title = "Executive Summary*"
 
     content text {
-      text = <<-EOT
-        This should be a brief narrative explaining the significance of the report to senior leadership. This should focus on the decision the CTI summary is supporting and the change in circumstances that makes this timely and actionable.  
+      value = <<-EOT
+        This should be a brief narrative explaining the significance of the report to senior leadership. This should focus on the decision the CTI summary is supporting and the change in circumstances that makes this timely and actionable.
 
-        This should focus on: 
+        This should focus on:
 
         * Bottom Line Up Front (BLUF): The single largest takeaway from the CTI analysis.
         * What is the new information?
         * Why it is important for the audience to understand this now?
         * What is the trend and why it is significant for the decision maker?
 
-        This section should not summarize the underlying reports used to create the analysis.  
+        This section should not summarize the underlying reports used to create the analysis.
         The Executive Summary should not be longer than 2–3 paragraphs, according to best practices.
       EOT
     }
@@ -45,7 +45,7 @@ document "mitre_ctid_executive_report" {
     title = "Key Points*"
 
     content text {
-      text = <<-EOT
+      value = <<-EOT
         This section should clearly lay out:
 
         * The trend in question.
@@ -59,8 +59,8 @@ document "mitre_ctid_executive_report" {
     title = "Assessment"
 
     content text {
-      text = <<-EOT
-        This section needs to lay out several things. 
+      value = <<-EOT
+        This section needs to lay out several things.
 
         * What is the trend that is being assessed?
         * What is the historical baseline?
@@ -76,7 +76,7 @@ document "mitre_ctid_executive_report" {
     title = "Outlook"
 
     content text {
-      text = <<-EOT
+      value = <<-EOT
         This section should provide an analysis of both the impact and what key points of leverage the company must disrupt or take advantage of the trend. This should focus on what key variables can impact the trend (both positively and negatively) should they change from current available information and which of those variables are within the constituent's control.
       EOT
     }
