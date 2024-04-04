@@ -1,0 +1,9 @@
+.DS_Store
+
+# Vale will install modules in `.vale/style` and those should not be in version control
+.github/styles/*
+!.github/styles/config
+
+# Ignore local fabric files
+.fabric
+.fabric-lock.json
