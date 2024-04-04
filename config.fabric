@@ -1,0 +1,7 @@
+fabric {
+  plugin_versions = {
+    "blackstork/elastic" = ">= 0.4.1",
+    "blackstork/openai" = ">= 0.4.1"
+  }
+}
+
