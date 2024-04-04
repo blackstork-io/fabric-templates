@@ -30,7 +30,7 @@ Fabric generates documents based on modular templates written in [Fabric Configu
     - [Intrusion Analysis Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-intrusion-analysis-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-intrusion-analysis-report-example.md))
     - [Threat Actor Profile Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-threat-actor-profile-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-threat-actor-profile-report-example.md))
 - SecOps
-    - [Weekly Activity Overview Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security.fabric) ([example](weekly-activity-overview-elastic-security-example.md))
+    - [Weekly Activity Overview Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security-example.md))
 
 ## Contributions
 
