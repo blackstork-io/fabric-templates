@@ -23,13 +23,13 @@ Fabric generates documents based on modular templates written in [Fabric Configu
 
 ## Templates
 
-- Cyber Threat Intelligence
+- Cyber Threat Intelligence:
   - MITRE CTID CTI Blueprints ([source](https://mitre-engenuity.org/cybersecurity/center-for-threat-informed-defense/our-work/cti-blueprints/))
     - [Campaign Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-campaign-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-campaign-report-example.md))
     - [Executive Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-executive-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-executive-report-example.md))
     - [Intrusion Analysis Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-intrusion-analysis-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-intrusion-analysis-report-example.md))
     - [Threat Actor Profile Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-threat-actor-profile-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-threat-actor-profile-report-example.md))
-- SecOps
+- SecOps:
     - [Weekly Activity Overview Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security-example.md))
 
 ## Contributions
