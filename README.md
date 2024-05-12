@@ -36,6 +36,7 @@ Fabric generates documents based on modular templates written in [Fabric Configu
     - [OSMR Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-osmr-exam-report.fabric)
     - [OSWA Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswa-exam-report.fabric)
     - [OSWE Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswe-exam-report.fabric)
+    - [OSWP Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswp-exam-report.fabric)
 - Cyber Threat Intelligence:
   - MITRE CTID CTI Blueprints ([source](https://mitre-engenuity.org/cybersecurity/center-for-threat-informed-defense/our-work/cti-blueprints/))
     - [Campaign Report Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-campaign-report.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/mitre-ctid-campaign-report.md))
