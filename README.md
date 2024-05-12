@@ -34,7 +34,7 @@ Fabric generates documents based on modular templates written in [Fabric Configu
     - [OSMR Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-osmr-exam-report.fabric)
     - [OSWA Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswa-exam-report.fabric)
     - [OSWE Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswe-exam-report.fabric)
-    - [OSWE Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswp-exam-report.fabric)
+    - [OSWP Exam Documentation](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/pentesting/offsec-oswp-exam-report.fabric)
 - SecOps:
     - [Weekly Activity Overview Template](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security.fabric) ([example](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/secops/weekly-activity-overview-elastic-security-example.md))
 - Cyber Threat Intelligence:
