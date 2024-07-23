@@ -343,7 +343,7 @@ document "soc_weekly_activity_overview" {
 
       local_var = query_jq(
         join("\n", [
-          from_file("./utils.jq"),
+          from_file("./soc-weekly-activity-overview-elastic-security.utils.jq"),
           <<-EOT
             gather_data_for_summarisation(
               .data.elasticsearch.alerts_curr_w_impact.hits.hits;
@@ -444,7 +444,7 @@ document "soc_weekly_activity_overview" {
 
         rows = query_jq(
             join("\n", [
-              from_file("./utils.jq"),
+              from_file("./soc-weekly-activity-overview-elastic-security.utils.jq"),
               "calculate_sla_metrics(.vars.alert_slas_hours_per_severity; .data.elasticsearch.alerts_curr.hits.hits)"
             ]
           )
@@ -700,7 +700,7 @@ document "soc_weekly_activity_overview" {
 
         local_var = query_jq(
             join("\n", [
-              from_file("./utils.jq"),
+              from_file("./soc-weekly-activity-overview-elastic-security.utils.jq"),
               "calculate_time_to_respond_metrics(.data.elasticsearch.alerts_curr.hits.hits)"
             ]
           )
@@ -719,7 +719,7 @@ document "soc_weekly_activity_overview" {
       vars {
         metrics = query_jq(
             join("\n", [
-              from_file("./utils.jq"),
+              from_file("./soc-weekly-activity-overview-elastic-security.utils.jq"),
               <<-EOT
                 calculate_alerts_load_metrics(
                   .vars.week_start_datetime | fromdateiso8601;
