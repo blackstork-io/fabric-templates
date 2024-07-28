@@ -49,9 +49,9 @@ In the past week, we have observed several critical security alerts with materia
 
 #### Fleet agents
 
-**New agents enrolled in the current week**: 13 (previous week: 7)
+*New agents enrolled in the current week*: 13 (previous week: 7)
 
-**Agents that missed their check-in**: 4
+*Agents that missed their check-in*: 4
 
 #### Detection rules
 

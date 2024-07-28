@@ -341,10 +341,12 @@ document "soc_weekly_activity_overview" {
 
     content openai_text {
 
+      some = query_jq(".foo.bar[1] | length")
+
       local_var = query_jq(
         join("\n", [
           from_file("./soc-weekly-activity-overview-elastic-security.utils.jq"),
-          <<-EOT
+          <<-EOQ
             gather_data_for_summarisation(
               .data.elasticsearch.alerts_curr_w_impact.hits.hits;
               .vars.alert_slas_hours_per_severity;
@@ -358,7 +360,7 @@ document "soc_weekly_activity_overview" {
               .data.elasticsearch.alerts_prev.aggregations.per_severity.buckets;
               .vars.analyst_shifts
             )
-          EOT
+          EOQ
         ])
       )
 
@@ -543,9 +545,9 @@ document "soc_weekly_activity_overview" {
             {{- $r := .data.elasticsearch.fleet_agents_enrolled_curr -}}
             {{- $m := .data.elasticsearch.fleet_agents_wo_checkin_curr -}}
 
-            **New agents enrolled in the current week**: {{ if eq $r.hits.total.relation "gte" -}} > {{- end -}}{{ $r.hits.total.value }} (previous week: {{ if eq $r.hits.total.relation "gte" -}} > {{- end -}}{{ $r.hits.total.value }})
+            *New agents enrolled in the current week*: {{ if eq $r.hits.total.relation "gte" -}} > {{- end -}}{{ $r.hits.total.value }} (previous week: {{ if eq $r.hits.total.relation "gte" -}} > {{- end -}}{{ $r.hits.total.value }})
 
-            **Agents that missed their check-in**: {{ if eq $m.hits.total.relation "gte" -}} > {{- end -}}{{ $m.hits.total.value }}
+            *Agents that missed their check-in*: {{ if eq $m.hits.total.relation "gte" -}} > {{- end -}}{{ $m.hits.total.value }}
           EOT
         }
       }
