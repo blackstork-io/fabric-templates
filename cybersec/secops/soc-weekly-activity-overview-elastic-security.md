@@ -1,3 +1,8 @@
+---
+title: "SOC Weekly Activity Overview"
+author: ["Clark Wilson, SOC team"]
+date: "2024-08-08"
+---
 
 # SOC Weekly Activity Overview
 
@@ -84,6 +89,7 @@ The rules producing the most FP alerts:
 - **Linux User Added to Privileged Group** (low severity): 15 alerts
 
 Rules failing the most:
+
 - **Unusual Web Request**: 210 failures
 - **Unusual DNS Activity**: 176 failures
 - **Unusual Country For an AWS Command**: 150 failures
@@ -99,13 +105,17 @@ Rules failing the most:
 ```mermaid
 ---
 config:
+  theme: base
+  themeVariables:
     xyChart:
-        width: 900
-        height: 300
-        xAxis:
-            labelPadding: 5 
-        yAxis:
-            titlePadding: 10
+      plotColorPalette: "#B2B2CC"
+  xyChart:
+    width: 900
+    height: 300
+    xAxis:
+      labelPadding: 5
+    yAxis:
+      titlePadding: 10
 ---
 xychart-beta
     title "Alerts per day"
@@ -141,48 +151,55 @@ xychart-beta
 | Steve Acosta | 2 | 0 | 23.83 |
 
 ```mermaid
-  gantt
-      title Week between 2024-07-01 00:00 and 2024-07-07 23:59
-      weekday Monday
-      tickInterval 1d
-      todayMarker off
-      dateFormat YYYY-MM-DDTHH:mm
-      axisFormat %a, %H:%M
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#B2B2CC"
+    font-size: 8
+---
+gantt
+    title Week between 2024-07-01 00:00 and 2024-07-07 23:59
+    weekday Monday
+    tickInterval 1d
+    todayMarker off
+    dateFormat YYYY-MM-DDTHH:mm
+    axisFormat %a, %H
 
-      section Clark Wilson
-          shift          :, 2024-07-17T12:00,2024-07-17T23:59
-          shift          :, 2024-07-18T12:00,2024-07-18T23:59
-          shift          :, 2024-07-21T12:00,2024-07-21T23:59
-      section Dane Harding
-          shift          :, 2024-07-15T12:00,2024-07-15T23:59
-          shift          :, 2024-07-16T12:00,2024-07-16T23:59
-          shift          :, 2024-07-19T12:00,2024-07-19T23:59
-          shift          :, 2024-07-20T12:00,2024-07-20T23:59
-      section Dion Ballard
-          shift          :, 2024-07-15T00:00,2024-07-15T12:00
-          shift          :, 2024-07-16T00:00,2024-07-16T12:00
-          shift          :, 2024-07-19T00:00,2024-07-19T12:00
-          shift          :, 2024-07-20T00:00,2024-07-20T12:00
-      section Elnora Hebert
-          shift          :, 2024-07-15T00:00,2024-07-15T12:00
-          shift          :, 2024-07-16T00:00,2024-07-16T12:00
-          shift          :, 2024-07-19T00:00,2024-07-19T12:00
-          shift          :, 2024-07-20T00:00,2024-07-20T12:00
-      section Gerard Harrison
-          shift          :, 2024-07-17T00:00,2024-07-17T12:00
-          shift          :, 2024-07-18T00:00,2024-07-18T12:00
-          shift          :, 2024-07-21T00:00,2024-07-21T12:00
-      section Marlene Shaffer
-          shift          :, 2024-07-17T00:00,2024-07-17T12:00
-          shift          :, 2024-07-18T00:00,2024-07-18T12:00
-          shift          :, 2024-07-21T00:00,2024-07-21T12:00
-      section Minerva Stout
-          shift          :, 2024-07-17T12:00,2024-07-17T23:59
-          shift          :, 2024-07-18T12:00,2024-07-18T23:59
-          shift          :, 2024-07-21T12:00,2024-07-21T23:59
-      section Steve Acosta
-          shift          :, 2024-07-15T12:00,2024-07-15T23:59
-          shift          :, 2024-07-16T12:00,2024-07-16T23:59
+    section Clark Wilson
+        shift          :, 2024-07-17T12:00,2024-07-17T23:59
+        shift          :, 2024-07-18T12:00,2024-07-18T23:59
+        shift          :, 2024-07-21T12:00,2024-07-21T23:59
+    section Dane Harding
+        shift          :, 2024-07-15T12:00,2024-07-15T23:59
+        shift          :, 2024-07-16T12:00,2024-07-16T23:59
+        shift          :, 2024-07-19T12:00,2024-07-19T23:59
+        shift          :, 2024-07-20T12:00,2024-07-20T23:59
+    section Dion Ballard
+        shift          :, 2024-07-15T00:00,2024-07-15T12:00
+        shift          :, 2024-07-16T00:00,2024-07-16T12:00
+        shift          :, 2024-07-19T00:00,2024-07-19T12:00
+        shift          :, 2024-07-20T00:00,2024-07-20T12:00
+    section Elnora Hebert
+        shift          :, 2024-07-15T00:00,2024-07-15T12:00
+        shift          :, 2024-07-16T00:00,2024-07-16T12:00
+        shift          :, 2024-07-19T00:00,2024-07-19T12:00
+        shift          :, 2024-07-20T00:00,2024-07-20T12:00
+    section Gerard Harrison
+        shift          :, 2024-07-17T00:00,2024-07-17T12:00
+        shift          :, 2024-07-18T00:00,2024-07-18T12:00
+        shift          :, 2024-07-21T00:00,2024-07-21T12:00
+    section Marlene Shaffer
+        shift          :, 2024-07-17T00:00,2024-07-17T12:00
+        shift          :, 2024-07-18T00:00,2024-07-18T12:00
+        shift          :, 2024-07-21T00:00,2024-07-21T12:00
+    section Minerva Stout
+        shift          :, 2024-07-17T12:00,2024-07-17T23:59
+        shift          :, 2024-07-18T12:00,2024-07-18T23:59
+        shift          :, 2024-07-21T12:00,2024-07-21T23:59
+    section Steve Acosta
+        shift          :, 2024-07-15T12:00,2024-07-15T23:59
+        shift          :, 2024-07-16T12:00,2024-07-16T23:59
 ```
 
 ## Feedback

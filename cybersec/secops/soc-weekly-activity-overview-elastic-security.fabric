@@ -323,6 +323,16 @@ document "soc_weekly_activity_overview" {
 
   # ================== THE REPORT BODY ======================
 
+  # Frontmatter for Pandoc
+  content frontmatter {
+    format = "yaml"
+    content = {
+      title = "SOC Weekly Activity Overview"
+      author = ["Clark Wilson, SOC team"]
+      date = "2024-08-08"
+    }
+  }
+
   title = "SOC Weekly Activity Overview"
 
   content text {
@@ -599,8 +609,8 @@ document "soc_weekly_activity_overview" {
         {{ with .data.elasticsearch.alerts_curr_fp.aggregations.per_rule_per_severity.buckets }}
 
         The rules producing the most FP alerts:
-        {{ range (slice . 0 5) }}
 
+        {{ range (slice . 0 5) }}
         - **{{ index .key 0 }}** ({{ index .key 1 }} severity): {{ .doc_count }} alerts
         {{ end }}
         {{- else -}}
@@ -609,6 +619,7 @@ document "soc_weekly_activity_overview" {
 
         {{- with .data.elasticsearch.rule_failures_curr.aggregations.per_rule_name.buckets }}
         Rules failing the most:
+
         {{ range (slice . 0 5) }}
         - **{{ .key }}**: {{ .doc_count }} failures
         {{- end }}
@@ -636,13 +647,17 @@ document "soc_weekly_activity_overview" {
         value = <<-EOT
           ---
           config:
+            theme: base
+            themeVariables:
               xyChart:
-                  width: 900
-                  height: 300
-                  xAxis:
-                      labelPadding: 5
-                  yAxis:
-                      titlePadding: 10
+                plotColorPalette: "#B2B2CC"
+            xyChart:
+              width: 900
+              height: 300
+              xAxis:
+                labelPadding: 5
+              yAxis:
+                titlePadding: 10
           ---
           xychart-beta
               title "Alerts per day"
@@ -767,19 +782,26 @@ document "soc_weekly_activity_overview" {
       content code {
         language = "mermaid"
         value = <<-EOT
-            gantt
-                title Week between {{ .vars.metrics.week_start }} and {{ .vars.metrics.week_end }}
-                weekday Monday
-                tickInterval 1d
-                todayMarker off
-                dateFormat YYYY-MM-DDTHH:mm
-                axisFormat %a, %H:%M
-                {{ range .vars.metrics.analyst_metrics }}
-                section {{ .analyst -}}
-                  {{ range .shifts }}
-                    shift          :, {{ index . 0 }},{{ index . 1 }}
-                  {{- end }}
+          ---
+          config:
+            theme: base
+            themeVariables:
+              primaryColor: "#B2B2CC"
+              font-size: 8
+          ---
+          gantt
+              title Week between {{ .vars.metrics.week_start }} and {{ .vars.metrics.week_end }}
+              weekday Monday
+              tickInterval 1d
+              todayMarker off
+              dateFormat YYYY-MM-DDTHH:mm
+              axisFormat %a, %H
+              {{ range .vars.metrics.analyst_metrics }}
+              section {{ .analyst -}}
+                {{ range .shifts }}
+                  shift          :, {{ index . 0 }},{{ index . 1 }}
                 {{- end }}
+              {{- end }}
         EOT
       }
     }
