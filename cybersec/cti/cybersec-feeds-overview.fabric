@@ -1,0 +1,678 @@
+config content openai_text {
+  api_key = env.OPENAI_API_KEY
+
+  system_prompt = <<-EOT
+    You are an AI assistant skilled in cybersecurity and threat intelligence
+    analysis. Your task is to create a military-intelligence style summary of
+    multiple cybersecurity articles, focusing on providing a clear overview of the
+    relevant content in the sources. Consolidate key insights into a single,
+    structured summary, emphasizing the most critical threats, vulnerabilities,
+    or topics covered. Avoid adding analysis or interpretation beyond the
+    information provided. Exclude irrelevant or promotional content.
+  EOT
+}
+
+config publish github_gist {
+  github_token = env.GITHUB_TOKEN
+}
+
+
+section "feeds_summary" {
+
+  content openai_text {
+    model = "gpt-4o-mini"
+ 
+    prompt = <<-EOT
+      Summarize the following cybersecurity articles into a clear, actionable
+      brief for CTI engineers, security engineers, and cybersecurity
+      researchers. Focus on consolidating key findings from all articles into
+      a unified set of up to 5 concise takeaways. Prioritize critical
+      threats, vulnerabilities, attack trends, and significant developments
+      relevant to the threat landscape and industry. Deprioritize vendor
+      marketing, promotional content, or irrelevant information.
+
+      Use the category of the feed to provide context and appropriately weight
+      the insights during summarization, ensuring the most relevant and
+      actionable information is emphasized.
+
+      - Avoid per-article summaries, additional analysis, or interpretation.
+      - Use all available information, even if some articles lack full
+        descriptions or content.
+      - Reference the source articles at the end of each takeaway in the format
+        ([Article title](Article link), [Article title](Article link)).
+      - Provide ONLY the list of takeaways with no additional formatting or
+        introductory text.
+
+      ===
+
+      FEEDS CATEGORY: {{ .vars.feeds_category }}
+      FEEDS WITH NEW ARTICLES: {{ len .vars.feeds_with_articles }}
+      FEEDS MONITORED OVERALL: {{ len .vars.feeds_all }}
+
+      {{ range $key, $value := .vars.feeds_with_articles }}
+      == FEED ==
+      {{ if gt (len $value.items) 0 }}
+      FEED SLUG: {{ $key }}
+      FEED TITLE: {{ $value.title }}
+      NEW ARTICLES: {{ len $value.items }}
+
+      {{ range $value.items }}
+      ==== FEED ARTICLE ====
+      ARTICLE TITLE: {{ .title }}
+      ARTICLE URL: {{ .link }}
+      DESCRIPTION: {{ printf "%.5000s" .description }}
+      CONTENT: {{ printf "%.5000s" .content }}
+      {{ end -}}
+      {{ end -}}
+      {{ end -}}
+    EOT
+  }
+
+  section {
+
+    title = "Articles"
+
+    content list {
+
+      items = query_jq(<<-EOT
+        .vars.feeds_with_articles
+        | [
+          to_entries[]
+          | .value as $feed
+          | $feed.items[]
+          | . + {
+            feed_title: $feed.title,
+            feed_link: $feed.link,
+          }
+        ]
+      EOT
+      )
+
+      item_template = "[{{ .title }}]({{ .link }}) by [{{ .feed_title }}]({{ .feed_link }}) at {{ .pub_date }}"
+    }
+  }
+}
+
+
+document "cybersec-feeds-overview" {
+
+  // Government
+
+  data rss gov_cis_advisories {
+    url = "https://www.cisecurity.org/feed/advisories"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss gov_cisa_advisories {
+    url = "https://www.cisa.gov/cybersecurity-advisories/all.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss goc_cisa_alerts {
+    url = "https://www.cisa.gov/cybersecurity-advisories/alerts.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss gov_nist_insights {
+    url = "https://www.nist.gov/blogs/cybersecurity-insights/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss gov_cto_ncsc {
+    url = "https://ctoatncsc.substack.com/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Newsletters
+
+  // Returns 403 because of Cloudflare bot detection
+  // data rss news_securityweek {
+  //   url = "https://www.securityweek.com/feed/"
+  // }
+
+  data rss news_arstechnica_security {
+    url = "https://arstechnica.com/tag/security/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_bleeping_computer {
+    url = "https://www.bleepingcomputer.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_cio_magazine {
+    url = "https://www.cio.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_dark_reading {
+    url = "https://www.darkreading.com/rss.xml"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_guardian_data_computer_security {
+    url = "https://www.theguardian.com/technology/data-computer-security/rss"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_hackread {
+    url = "https://hackread.com/feed/"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_threatpost {
+    url = "https://threatpost.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_zdnet {
+    url = "https://www.zdnet.com/topic/security/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_cybersecuritynews {
+    url = "https://feeds.feedburner.com/cyber-security-news"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_cyberscoop {
+    url = "https://cyberscoop.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_gbhackers {
+    url = "https://gbhackers.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss news_thecyberexpress {
+    url = "https://thecyberexpress.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Returns a strange binary file
+  // data rss news_thecyberwire {
+  //   url = "https://thecyberwire.com/feeds/rss.xml"
+  //   only_items_after_time = env.FABRIC_FROM_TIME
+  // }
+
+  // Vendors
+
+  // Invalid XML returned
+  // data rss vendor_elastic {
+  //   url = "https://www.elastic.co/security-labs/rss/feed.xml"
+  //   only_items_after_time = env.FABRIC_FROM_TIME
+  // }
+
+  data rss vendor_intezer {
+    url = "https://intezer.com/blog/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_0patch {
+    url = "https://blog.0patch.com/feeds/posts/default?alt=rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_levelblue {
+    url = "https://levelblue.com/site/blog-all-rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_bitdefender {
+    url = "https://www.bitdefender.com/nuxt/api/en-us/rss/labs/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_broadcom_symantec {
+    url = "https://sed-cms.broadcom.com/rss/v1/blogs/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_checkpoint {
+    url = "https://research.checkpoint.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_cisco {
+    url = "https://blogs.cisco.com/security/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_cloudflare {
+    url = "https://blog.cloudflare.com/tag/security/rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_crowdstrike {
+    url = "https://www.crowdstrike.com/en-us/blog/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_eclecticiq {
+    url = "https://blog.eclecticiq.com/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_eset {
+    url = "https://feeds.feedburner.com/eset/blog?format=xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_fortinet {
+    url = "https://feeds.fortinet.com/fortinet/blog/threat-research"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_google_online_security {
+    url = "https://feeds.feedburner.com/GoogleOnlineSecurityBlog"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_ibm_security_intelligence {
+    url = "https://securityintelligence.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_malware_bytes {
+    url = "https://www.malwarebytes.com/blog/feed/index.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_microsoft_security_blog {
+    url = "https://www.microsoft.com/en-us/security/blog/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_proofpoint {
+    url = "https://www.proofpoint.com/us/rss.xml"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_recorded_future_therecord {
+    url = "https://therecord.media/feed"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_exatrack {
+    url = "https://blog.exatrack.com/index.xml"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Returns 404 randomly
+  // data rss vendor_recorded_future_blog {
+  //   url = "https://www.recordedfuture.com/feed"
+  //   use_browser_user_agent = true
+  //   only_items_after_time = env.FABRIC_FROM_TIME
+  // }
+
+  data rss vendor_kaspersky_securelist {
+    url = "https://securelist.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_orange_sensepost {
+    url = "https://sensepost.com/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_sentinelone_labs {
+    url = "https://sentinelone.com/labs/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_dogesec {
+    url = "https://www.dogesec.com/feed.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_spected_ops {
+    url = "https://posts.specterops.io/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_paloaltonetworks_blog {
+    url = "https://www.paloaltonetworks.com/blog/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_paloaltonetworks_unit42 {
+    url = "https://unit42.paloaltonetworks.com/feed/"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_upguard_breaches {
+    url = "https://www.upguard.com/breaches/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_veracode {
+    url = "https://www.veracode.com/blog/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_virus_bulletin {
+    url = "https://www.virusbulletin.com/rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_virustotal_blog {
+    url = "https://blog.virustotal.com/feeds/posts/default"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_breaches_cloud {
+    url = "https://www.breaches.cloud/index.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_thezdi {
+    url = "https://www.thezdi.com/blog?format=rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_ahnlab {
+    url = "https://asec.ahnlab.com/en/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_morphisec {
+    url = "https://blog.morphisec.com/rss.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_pulsedive {
+    url = "https://blog.pulsedive.com/rss/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_rstcloud {
+    url = "https://medium.com/feed/@rst_cloud"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Returns 500 Internal Server Error often
+  // data rss vendor_reliaquest {
+  //   url = "https://www.reliaquest.com/feed/"
+  //   only_items_after_time = env.FABRIC_FROM_TIME
+  // }
+
+  data rss vendor_tenable_blog {
+    url = "https://feeds.feedburner.com/tenable/qaXL"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss vendor_cymru {
+    url = "https://www.team-cymru.com/blog-feed.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Personalities
+
+  data rss personal_anton_chuvakin {
+    url = "https://medium.com/feed/anton-on-security"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_graham_cluley {
+    url = "https://grahamcluley.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_schneier_on_security {
+    url = "https://www.schneier.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_dan_lohrmann {
+    url = "https://feeds.feedburner.com/govtech/blogs/lohrmann_on_infrastructure"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_brad_malware_traffic_analysis {
+    url = "https://www.malware-traffic-analysis.net/blog-entries.rss"
+    fill_in_content = true
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_pierluigi_paganini {
+    url = "https://securityaffairs.com/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_troy_hunt {
+    url = "https://www.troyhunt.com/rss/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_bartblaze {
+    url = "https://bartblaze.blogspot.com/feeds/posts/default"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_bushidotoken {
+    url = "https://blog.bushidotoken.net/feeds/posts/default"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_connormcgarr {
+    url = "https://connormcgarr.github.io/feed.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_blockthreat {
+    url = "https://newsletter.blockthreat.io/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_cybercrimediaries {
+    url = "https://www.cybercrimediaries.com/blog-feed.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_sebdraven {
+    url = "https://medium.com/feed/@sebdraven"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_cisotradecraft {
+    url = "https://cisotradecraft.substack.com/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_thecybersecuritypulse {
+    url = "https://www.cybersecuritypulse.net/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_detection_at_scale {
+    url = "https://jacknaglieri.substack.com/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_stiennon {
+    url = "https://stiennon.substack.com/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_ecapuano {
+    url = "https://blog.ecapuano.com/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_krebsonsecurity {
+    url = "https://krebsonsecurity.com/feed/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_0x434b {
+    url = "https://0x434b.dev/rss/"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss personal_willsroot {
+    url = "https://www.willsroot.io/feeds/posts/default?alt=rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Community
+
+  data rss community_curatedintel {
+    url = "https://www.curatedintel.org/feeds/posts/default"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss community_nao_sec {
+    url = "https://nao-sec.org/feed"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  // Returns "429 Too Many Requests", looks like an aggressive rate-limiting
+  // data rss community_darknet {
+  //   url = "http://www.darknet.org.uk/feed/"
+  //   only_items_after_time = env.FABRIC_FROM_TIME
+  // }
+
+  data rss community_reddit_cybersecurity {
+    url = "https://www.reddit.com/r/cybersecurity/.rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+  data rss community_reddit_netsec {
+    url = "https://www.reddit.com/r/netsec/.rss"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+ 
+  data rss community_sans_isc {
+    url = "https://isc.sans.edu/rssfeed_full.xml"
+    only_items_after_time = env.FABRIC_FROM_TIME
+  }
+
+
+  vars {
+    gov_feeds = query_jq(<<-EOT
+      .data.rss | to_entries | map(select(.key | startswith("gov_"))) | from_entries
+    EOT
+    )
+
+    vendor_feeds = query_jq(<<-EOT
+      .data.rss | to_entries | map(select(.key | startswith("vendor_"))) | from_entries
+    EOT
+    )
+
+    news_feeds = query_jq(<<-EOT
+      .data.rss | to_entries | map(select(.key | startswith("news_"))) | from_entries
+    EOT
+    )
+
+    personal_feeds = query_jq(<<-EOT
+      .data.rss | to_entries | map(select(.key | startswith("personal_"))) | from_entries
+    EOT
+    )
+
+    community_feeds = query_jq(<<-EOT
+      .data.rss | to_entries | map(select(.key | startswith("community_"))) | from_entries
+    EOT
+    )
+  }
+
+  title = <<-EOT
+    Weekly Cybersec Feeds, {{ toDate "2006-01-02T15:04:05Z" .env.FABRIC_FROM_TIME | date "Jan 2, 2006" }} - {{ now | date "Jan 2, 2006" }}
+  EOT
+
+  content text {
+    value = <<-EOT
+    This weekly brief consolidates key insights from 80+ sources, including
+    government organizations, cybersecurity vendors, threat intelligence teams,
+    security research labs, and blogs from cybersecurity communities and
+    professionals. It highlights the most significant threats, vulnerabilities,
+    and developments from the past week to keep you informed.
+    EOT
+  }
+
+  section ref {
+    base = section.feeds_summary
+
+    title = "Gov Feeds"
+
+    vars {
+      feeds_all = query_jq(".vars.gov_feeds")
+      feeds_with_articles = query_jq(".vars.feeds_all | to_entries | map(select((.value.items | length) > 0)) | from_entries")
+      feeds_category = query_jq(".vars.feeds_all | to_entries | .[0].key | split(\"_\")[0]")
+    }
+  }
+
+  section ref {
+    base = section.feeds_summary
+
+    title = "Vendor Feeds"
+
+    vars {
+      feeds_all = query_jq(".vars.vendor_feeds")
+      feeds_with_articles = query_jq(".vars.feeds_all | to_entries | map(select((.value.items | length) > 0)) | from_entries")
+      feeds_category = query_jq(".vars.feeds_all | to_entries | .[0].key | split(\"_\")[0]")
+    }
+  }
+
+  section ref {
+    base = section.feeds_summary
+
+    title = "News Feeds"
+
+    vars {
+      feeds_all = query_jq(".vars.news_feeds")
+      feeds_with_articles = query_jq(".vars.feeds_all | to_entries | map(select((.value.items | length) > 0)) | from_entries")
+      feeds_category = query_jq(".vars.feeds_all | to_entries | .[0].key | split(\"_\")[0]")
+    }
+  }
+
+  section ref {
+    base = section.feeds_summary
+
+    title = "Personal Feeds"
+
+    vars {
+      feeds_all = query_jq(".vars.personal_feeds")
+      feeds_with_articles = query_jq(".vars.feeds_all | to_entries | map(select((.value.items | length) > 0)) | from_entries")
+      feeds_category = query_jq(".vars.feeds_all | to_entries | .[0].key | split(\"_\")[0]")
+    }
+  }
+
+  section ref {
+    base = section.feeds_summary
+
+    title = "Community Feeds"
+
+    vars {
+      feeds_all = query_jq(".vars.community_feeds")
+      feeds_with_articles = query_jq(".vars.feeds_all | to_entries | map(select((.value.items | length) > 0)) | from_entries")
+      feeds_category = query_jq(".vars.feeds_all | to_entries | .[0].key | split(\"_\")[0]")
+    }
+  }
+
+  section {
+    title = "Disclaimer"
+
+    content text {
+      value = <<-EOT
+      The summaries in this brief are generated autonomously by the OpenAI LLM
+      model based on the provided system and user prompts. While every effort
+      is made to consolidate accurate and relevant insights, the model may
+      occasionally misinterpret, misrepresent, or hallucinate information.
+      Readers are strongly advised to verify all key points by consulting the
+      original sources linked in the brief for complete context and accuracy.
+
+      The document is build with [BlackStork](https://blackstork.io/). The
+      template is [available on GitHub](https://github.com/blackstork-io/fabric-templates/tree/main/cybersec/cti/cybersec-feeds-overview.fabric).
+      EOT
+    }
+
+  }
+}
