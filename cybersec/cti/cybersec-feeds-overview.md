@@ -305,4 +305,4 @@ Readers are strongly advised to verify all key points by consulting the
 original sources linked in the brief for complete context and accuracy.
 
 This document is created with [BlackStork](https://blackstork.io), using
-a [template available on GitHub](https://github.com/blackstork-io/fabric-templates/blob/main/cybersec/cti/cybersec-feeds-overview.md).
+a [template available on GitHub](https://github.com/blackstork-io/fabric-templates/blob/main/cybersec/cti/cybersec-feeds-overview.fabric).
