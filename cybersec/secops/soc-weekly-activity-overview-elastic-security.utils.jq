@@ -41,40 +41,40 @@ def calculate_sla_metrics($hours_per_severity_slas; $alerts):
         | add_time_to_respond(.)
         | add_sla_match(.; $hours_per_severity_slas)
     ]
-    | group_by(.severity)
-    | map({
-        (.[0].severity) : {
-          "slas": (
-            .
-            | group_by(.in_sla)
-            | map({( if .[0].in_sla then "in_sla" else "out_sla" end): length})
-            | map( . |= {"in_sla": 0, "out_sla": 0} + .)  # set default values 
-            | add
+  | group_by(.severity)
+  | map({
+      (.[0].severity) : {
+        "slas": (
+          .
+          | group_by(.in_sla)
+          | map({( if .[0].in_sla then "in_sla" else "out_sla" end): length})
+          | map( . |= {"in_sla": 0, "out_sla": 0} + .)  # set default values 
+          | add
+        ),
+        "time_to_respond_hours": {
+          "median": (
+            map(.response_time_secs)
+            | sort
+            # Calculating a median value
+            | (
+               if length == 0 then null
+               elif length % 2 == 0 then (.[length/2] + .[length/2-1])/2
+               else .[length/2 | floor]
+               end
+             ) / (60 * 60)
           ),
-          "time_to_respond_hours": {
-            "median": (
-              map(.response_time_secs)
-              | sort
-              # Calculating a median value
-              | (
-                 if length == 0 then null
-                 elif length % 2 == 0 then (.[length/2] + .[length/2-1])/2
-                 else .[length/2 | floor]
-                 end
-               ) / (60 * 60)
-            ),
-            "max": (map(.response_time_secs) | max / (60 * 60))
-          }
+          "max": (map(.response_time_secs) | max / (60 * 60))
         }
-      })
-    | add as $metrics
-    | $severity_order
-    | map({
-      "severity": .,
-      "max_hours": $hours_per_severity_slas[.],
-      "metrics": $metrics[.].slas,
-      "time_to_respond_hours": $metrics[.].time_to_respond_hours
-    });
+      }
+    })
+  | add as $metrics
+  | $severity_order
+  | map({
+    "severity": .,
+    "max_hours": $hours_per_severity_slas[.],
+    "metrics": $metrics[.].slas,
+    "time_to_respond_hours": $metrics[.].time_to_respond_hours
+  });
 
 
 def calculate_time_to_respond_metrics($alerts):

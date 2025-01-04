@@ -351,8 +351,6 @@ document "soc_weekly_activity_overview" {
 
     content openai_text {
 
-      some = query_jq(".foo.bar[1] | length")
-
       local_var = query_jq(
         join("\n", [
           from_file("./soc-weekly-activity-overview-elastic-security.utils.jq"),
